@@ -1,0 +1,50 @@
+<div class="col-md-4">
+    <h1>Register</h1>
+    <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+    <form class="form" ng-submit="register()">
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" class="form-control" name="fullName" ng-model="registerForm.fullName" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+            <label>Sex</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="sex" ng-model="registerForm.sex" value="male" ng-checked="true" checked> Male
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="sex" ng-model="registerForm.sex" value="female"> Female
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Birth Year</label>
+            <input type="text" class="form-control" name="year" ng-model="registerForm.year" ng-pattern="/^\d{4}$/" placeholder="ex. 1991" required>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" name="email" ng-model="registerForm.email" placeholder="example@example.com" required>
+        </div>
+        <div class="form-group">
+            <label>Height (centimeters)</label>
+            <input type="text" class="form-control" name="height" ng-model="registerForm.height" placeholder="173" required>
+        </div>
+        <div class="form-group">
+            <label>Weight (kilograms)</label>
+            <input type="text" class="form-control" name="weight" ng-model="registerForm.weight" placeholder="65" required>
+        </div>
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" name="username" ng-model="registerForm.username" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" ng-model="registerForm.password" required>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-default" ng-disabled="disabled">Register</button>
+        </div>
+    </form>
+</div>

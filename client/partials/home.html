@@ -1,0 +1,91 @@
+<div class="col-md-12">
+    <div class="form">
+        <h1>Smart Mirror Personal Information</h1>
+        <div class="form-group">
+            <label>Full Name</label>
+            <div class="form-control-static">{{user.fullName}}</div>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <div class="form-control-static">{{user.email}}</div>
+        </div>
+        <div class="form-group">
+            <label>Birth year</label>
+            <div class="form-control-static">{{user.year}}</div>
+        </div>
+        <div class="form-group">
+            <label>Height</label>
+            <div class="form-control-static">{{user.height}}</div>
+        </div>
+        <div class="form-group">
+            <label>Weight</label>
+            <div class="form-control-static">{{user.weight}}</div>
+        </div>
+    </div>
+    <div class="reminders">
+        <h1>Reminders</h1>
+        <table class="table table-bordered table-hover table-condensed">
+            <tr style="font-weight: bold">
+                <td style="width:15%">Title</td>
+                <td style="width:15%">Recurrence</td>
+                <td style="width:15%">Day</td>
+                <td style="width:15%">Date</td>
+                <td style="width:40%">Description</td>
+            </tr>
+            <tr ng-repeat="reminder in reminders">
+                <td>
+                    <span editable-text="reminder.title" e-name="title" e-form="rowform" e-required>
+        {{ reminder.title || 'empty' }}
+      </span>
+                </td>
+                <td>
+                    <span editable-select="reminder.recurrence" e-name="recurrence" e-ng-change="changeRecurrence($data, rowform)" e-form="rowform" e-ng-options="r.value as r.text for r in recurrences">
+        {{ showRecurrence(reminder) }}
+      </span>
+                </td>
+                <td>
+                    <!-- editable group (select-remote) -->
+                    <span editable-select="reminder.day" e-name="day" e-form="rowform" e-ng-disabled="reminder.recurrence !== 'w'" e-ng-options="d.value as d.text for d in days">
+        {{ showDay(reminder) }}
+      </span>
+                </td>
+                <td>
+                    <!-- editable group (select-remote) -->
+                    <span editable-select="reminder.date" e-name="date" e-form="rowform" e-ng-disabled="reminder.recurrence !== 'm'" e-ng-options="d.value as d.text for d in dates">
+        {{ showDate(reminder) }}
+      </span>
+                </td>
+                <td>
+                    <span editable-text="reminder.description" e-name="description" e-form="rowform" e-required>
+            {{ reminder.description || 'empty' }}
+          </span>
+                </td>
+                <td style="white-space: nowrap">
+                    <!-- form -->
+                    <form editable-form name="rowform" onbeforesave="saveReminder($data, reminder.userId, reminder.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == reminder">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                            save
+                        </button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                            cancel
+                        </button>
+                    </form>
+                    <div class="buttons" ng-show="!rowform.$visible">
+                        <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                        <button class="btn btn-danger" ng-click="removeReminder($index, reminder.id)">del</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <ul class="list-inline">
+            <li class="pull-left">
+                <button class="btn btn-default" ng-click="addReminder()">Add reminder</button>
+            </li>
+            <li class="pull-right">
+                <div ng-controller="logoutController">
+                    <a ng-click='logout()' class="btn btn-default">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
